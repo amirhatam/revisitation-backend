@@ -10,7 +10,7 @@ const getStudents = async (req, res) => {
     } catch (err) {
         console.log(err);
 
-        rea.status(500).json({ errorMessage: "There was a problem :(" })
+        res.status(500).json({ errorMessage: "There was a problem :(" })
     }
 }
 
