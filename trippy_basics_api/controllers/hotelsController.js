@@ -33,4 +33,25 @@ const addHotel = async (req, res) => {
     }
 }
 
-module.exports = { getHotels, addHotel }
+const getHotelById = async (req, res) => {
+
+    try {
+        const hotelId = req.params.id
+        const hotel = await hotelModel.findById(hotelId)
+
+        if (hotel) {
+            res.json(hotel)
+        } else {
+            res.json({
+                message: "Hotel not found"
+            })
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
+
+module.exports = { getHotels, addHotel, getHotelById }

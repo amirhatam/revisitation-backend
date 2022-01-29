@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const { getHotels, addHotel } = require("../controllers/hotelsController")
+const { getHotels, addHotel, getHotelById } = require("../controllers/hotelsController")
 
 router.get('/', getHotels)
 router.post('/', addHotel)
+router.get('/:id', getHotelById)
 
 router.all("*", (req, res) => {
     res.json = ({
