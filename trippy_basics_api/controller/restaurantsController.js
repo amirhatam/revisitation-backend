@@ -12,4 +12,19 @@ const getRestaurantes = async (req, res) => {
     }
 }
 
-module.exports = { getRestaurantes }
+const addRestaurants = async (req, res) => {
+    try {
+        const newData = req.body
+        const newRestaurant = await restaurantsModel.create(newData)
+
+        res.json({
+            message: "Restaurant was created",
+            newRestaurant
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ errorMessage: "There was a problem :(" })
+    }
+}
+
+module.exports = { getRestaurantes, addRestaurants }
