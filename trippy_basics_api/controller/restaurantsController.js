@@ -65,4 +65,19 @@ const updateRestaurant = async (req, res) => {
     }
 }
 
-module.exports = { getRestaurantes, addRestaurants, getRestaurant, updateRestaurant }
+const deleteRestaurant = async (req, res) => {
+    try {
+        const restaurant = req.params.id
+        const deleteRestaurant = await restaurantsModel.deleteOne({ _id: restaurant })
+
+        res.json({
+            message: "Restaurant was deleted",
+            deleteRestaurant
+        })
+
+    } catch (err) {
+        res.status(500).json({ message: "There was a problem", err })
+    }
+}
+
+module.exports = { getRestaurantes, addRestaurants, getRestaurant, updateRestaurant, deleteRestaurant }
