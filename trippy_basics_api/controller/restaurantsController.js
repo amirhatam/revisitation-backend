@@ -27,4 +27,20 @@ const addRestaurants = async (req, res) => {
     }
 }
 
-module.exports = { getRestaurantes, addRestaurants }
+const getRestaurant = async (req, res) => {
+    try {
+        const restaurantId = req.params.id
+
+        const restaurant = await restaurantsModel.findById(restaurantId)
+
+        res.json({
+            message: "Restaurant was found",
+            restaurant
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ errorMessage: "There was a problem :(" })
+    }
+}
+
+module.exports = { getRestaurantes, addRestaurants, getRestaurant }
