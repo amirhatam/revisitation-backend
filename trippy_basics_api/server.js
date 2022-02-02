@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors")
 const mongoose = require('mongoose')
 const hotels = require('./routes/hotelsRoute')
+const restaurants = require('./routes/restaurantsRoute')
 
 mongoose.connect('mongodb://localhost:27017/trippy', (err) => {
     if (err) {
@@ -19,6 +20,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/hotels', hotels)
+app.use('/restaurants', restaurants)
 
 const port = 8000
 app.listen(port, () => {
