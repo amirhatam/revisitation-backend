@@ -75,12 +75,24 @@ const updateHotel = async (req, res) => {
 
     } catch (err) {
         res.status(500).json({ message: "There was a problem", err })
-
     }
 
 }
 
+const deleteHotel = async (req, res) => {
+    try {
+        const hotel = req.params.id
+        const deleteHotel = await hotelModel.deleteOne({ _id: hotel })
+
+        res.json({
+            message: "Hotel was deleted",
+            deleteHotel
+        })
+
+    } catch (err) {
+        res.status(500).json({ message: "There was a problem", err })
+    }
+}
 
 
-
-module.exports = { getHotels, addHotel, getHotel, updateHotel }
+module.exports = { getHotels, addHotel, getHotel, updateHotel, deleteHotel }
