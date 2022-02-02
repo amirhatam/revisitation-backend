@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 const hotelModel = require("../models/hotelsModel")
 
 const getHotels = async (req, res) => {
@@ -33,7 +34,7 @@ const addHotel = async (req, res) => {
     }
 }
 
-const getHotelById = async (req, res) => {
+const getHotel = async (req, res) => {
 
     try {
         const hotelId = req.params.id
@@ -48,10 +49,38 @@ const getHotelById = async (req, res) => {
         }
 
     } catch (err) {
-        console.log(err);
+        res.status(500).json({ message: "There was a problem", err })
+
+    }
+
+}
+
+const updateHotel = async (req, res) => {
+
+    try {
+        const hotel = req.params.id
+
+        //update with query
+        const queryData = req.query.name
+        const updateHotel = await hotelModel.updateOne({ _id: hotel }, { name: queryData })
+
+        //update with body
+        // const newData = req.body
+        // const updateHotel = await hotelModel.updateOne({ _id: hotel }, newData)
+
+        res.json({
+            message: "Hotel was updated",
+            updateHotel
+        })
+
+    } catch (err) {
+        res.status(500).json({ message: "There was a problem", err })
+
     }
 
 }
 
 
-module.exports = { getHotels, addHotel, getHotelById }
+
+
+module.exports = { getHotels, addHotel, getHotel, updateHotel }
