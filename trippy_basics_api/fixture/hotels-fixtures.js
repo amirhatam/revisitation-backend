@@ -34,6 +34,7 @@ const addHotels = async () => {
                 priceCategory: 250,
             }
         ])
+        console.log("The hotels collection was recreated with the base data");
     } catch (err) {
         console.log(err);
     }

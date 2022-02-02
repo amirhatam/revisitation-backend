@@ -1,9 +1,9 @@
-const restaurantModel = require('../models/restaurantsModel')
+const restaurantsModel = require('../models/restaurantsModel')
 
 const getRestaurantes = async (req, res) => {
 
     try {
-        const restaurants = await restaurantModel.find().exec()
+        const restaurants = await restaurantsModel.find().exec()
 
         res.json(restaurants)
     } catch (err) {
