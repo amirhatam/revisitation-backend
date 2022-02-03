@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const hotels = require('./routes/hotelsRoute')
 const restaurants = require('./routes/restaurantsRoute')
 
-mongoose.connect('mongodb://localhost:27017/trippy', (err) => {
+mongoose.connect('mongodb://localhost:27017/trippy', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
         console.log(err);
     } else {
