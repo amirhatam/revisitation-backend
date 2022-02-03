@@ -1,29 +1,33 @@
-const restaurantsModel = require('../models/restaurantsModel')
+const restaurantsModel = require('../models/restaurants')
+const expressValidator = require("express-validator");
 
 const getRestaurantes = async (req, res) => {
 
     try {
-        const restaurants = await restaurantsModel.find().exec()
+        const restaurants = await restaurantsModel.find().lean()
 
         res.json(restaurants)
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ errorMessage: "There was a problem :(" })
+    } catch (error) {
+
+        res.status(500).json({ message: "There was a problem", error })
     }
 }
 
 const addRestaurants = async (req, res) => {
     try {
         const newData = req.body
-        const newRestaurant = await restaurantsModel.create(newData)
+        const errors = expressValidator.validationResult(req)
 
-        res.json({
-            message: "Restaurant was created",
-            newRestaurant
-        })
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ errorMessage: "There was a problem :(" })
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() })
+        } else {
+            const newRestaurant = await restaurantsModel.create(newData)
+
+            res.json({ message: "The restaurant was created", newRestaurant })
+        }
+
+    } catch (error) {
+        res.status(500).json({ message: "There was a problem", error })
     }
 }
 
@@ -37,9 +41,9 @@ const getRestaurant = async (req, res) => {
             message: "Restaurant was found",
             restaurant
         })
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ errorMessage: "There was a problem :(" })
+    } catch (error) {
+
+        res.status(500).json({ message: "There was a problem", error })
     }
 }
 

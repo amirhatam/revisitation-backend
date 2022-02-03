@@ -1,16 +1,15 @@
-const hotelModel = require("../models/hotelsModel")
+const hotelModel = require("../models/hotels")
+const expressValidator = require("express-validator");
+
 
 const getHotels = async (req, res) => {
 
     try {
-
-        const hotels = await hotelModel.find().exec()
+        const hotels = await hotelModel.find().lean()
 
         res.json(hotels)
-    } catch (err) {
-        console.log(err);
-
-        res.status(500).json({ errorMessage: "There was a problem :(" })
+    } catch (error) {
+        res.status(500).json({ errorMessage: "There was a problem :(", error })
     }
 
 }
@@ -18,18 +17,17 @@ const getHotels = async (req, res) => {
 const addHotel = async (req, res) => {
     try {
         const newHotel = req.body
-        console.log(newHotel);
-        const hotelAdded = await hotelModel.create(newHotel)
+        const errors = expressValidator.validationResult(req)
 
-        res.json({
-            message: 'Hotel was Added',
-            hotelAdded
-        })
-    } catch (err) {
-        console.error('Error in POST /addHotel');
-        res.json({
-            message: 'The hotel was not added :('
-        })
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() })
+        } else {
+            const hotelAdded = await hotelModel.create(newHotel)
+
+            res.json({ message: 'The hotel was Added', hotelAdded })
+        }
+    } catch (error) {
+        res.status(500).json({ message: "There was a problem", error })
     }
 }
 
@@ -37,7 +35,7 @@ const getHotel = async (req, res) => {
 
     try {
         const hotelId = req.params.id
-        const hotel = await hotelModel.findById(hotelId)
+        const hotel = await hotelModel.findById(hotelId).lean()
 
         if (hotel) {
             res.json(hotel)
@@ -47,9 +45,8 @@ const getHotel = async (req, res) => {
             })
         }
 
-    } catch (err) {
-        res.status(500).json({ message: "There was a problem", err })
-
+    } catch (error) {
+        res.status(500).json({ errorMessage: "There was a problem :(", error })
     }
 
 }
