@@ -5,10 +5,10 @@ const restaurantSchema = mongoose.Schema({
     address: String,
     city: String,
     country: String,
-    stars: Number,
+    stars: { type: Number, min: 1, max: 5 },
     cuisine: String,
-    priceCategory: Number,
-    date: { type: Date, default: Date.now }
+    priceCategory: { type: Number, min: 1, max: 3 },
+    created: { type: Date, default: Date.now }
 })
 
 const Restaurant = mongoose.model('Restaurant', (restaurantSchema))
