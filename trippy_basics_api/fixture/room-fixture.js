@@ -25,7 +25,10 @@ const addRooms = async () => {
                 hasBathroom: false
             }
         ])
+        console.log("The rooms collection was recreated with the base data");
+
     } catch (error) {
+        console.log(error);
 
     }
 }

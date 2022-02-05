@@ -5,7 +5,7 @@ const restaurantSchema = mongoose.Schema({
     address: String,
     city: String,
     country: String,
-    stars: { type: Number, min: 1, max: 5 },
+    stars: { type: Number, min: 1, max: 7 },
     cuisine: String,
     priceCategory: { type: Number, min: 1, max: 3 },
     tables: {
