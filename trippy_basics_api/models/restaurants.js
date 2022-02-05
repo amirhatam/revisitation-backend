@@ -8,6 +8,10 @@ const restaurantSchema = mongoose.Schema({
     stars: { type: Number, min: 1, max: 5 },
     cuisine: String,
     priceCategory: { type: Number, min: 1, max: 3 },
+    tables: {
+        type: mongoose.Types.ObjectId,
+        ref: "Table"
+    },
     date: { type: Date, default: Date.now }
 })
 
