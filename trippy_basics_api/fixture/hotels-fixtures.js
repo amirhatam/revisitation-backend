@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const hotelModel = require('../models/hotels')
+const roomModel = require('../models/room')
 
 mongoose.connect('mongodb://localhost:27017/trippy', (err) => {
     if (err) {
@@ -11,6 +12,16 @@ mongoose.connect('mongodb://localhost:27017/trippy', (err) => {
 
 const addHotels = async () => {
     try {
+        const roomOne = await roomModel.findOne({
+            people: 2,
+            price: 80,
+            hasBathroom: true
+        })
+        const roomTwo = await roomModel.findOne({
+            people: 1,
+            price: 50,
+            hasBathroom: false
+        })
         await hotelModel.deleteMany({})
         await hotelModel.insertMany([
             {
@@ -21,7 +32,8 @@ const addHotels = async () => {
                 stars: 6,
                 hasSpa: true,
                 hasPool: true,
-                priceCategory: 200,
+                priceCategory: 1,
+                rooms: roomOne._id
             },
             {
                 name: "Tivoli",
@@ -31,7 +43,8 @@ const addHotels = async () => {
                 stars: 6,
                 hasSpa: true,
                 hasPool: true,
-                priceCategory: 250,
+                priceCategory: 2,
+                rooms: roomTwo._id
             }
         ])
         console.log("The hotels collection was recreated with the base data");
