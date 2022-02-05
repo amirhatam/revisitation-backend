@@ -8,7 +8,7 @@ const restaurantSchema = mongoose.Schema({
     stars: { type: Number, min: 1, max: 5 },
     cuisine: String,
     priceCategory: { type: Number, min: 1, max: 3 },
-    created: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now }
 })
 
 const Restaurant = mongoose.model('Restaurant', (restaurantSchema))
