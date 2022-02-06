@@ -14,8 +14,6 @@ mongoose.connect('mongodb://localhost:27017/trippy', { useNewUrlParser: true, us
     }
 })
 
-
-
 const app = express()
 
 app.use(cors())

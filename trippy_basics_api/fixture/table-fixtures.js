@@ -16,7 +16,23 @@ const addTabels = async () => {
             {
                 seat: 2,
                 isVIP: true
-            }
+            },
+            {
+                seat: 3,
+                isVIP: false
+            },
+            {
+                seat: 4,
+                isVIP: false
+            },
+            {
+                seat: 5,
+                isVIP: false
+            },
+            {
+                seat: 6,
+                isVIP: true
+            },
         ])
         console.log("The tables collection was recreated with the base data");
 
