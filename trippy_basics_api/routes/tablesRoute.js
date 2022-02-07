@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { getTables } = require('../controller/tableControllers')
+const paginatedResults = require('../middlewares/paginatedMiddlewares')
 
 router.get('/', getTables)
 
