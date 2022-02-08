@@ -1,6 +1,8 @@
 const userModel = require("../models/user")
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const config = require("../utils/config")
+
 
 
 const signup = async (req, res) => {
@@ -22,4 +24,44 @@ const signup = async (req, res) => {
 
 }
 
-module.exports = { signup }
+const login = async (req, res) => {
+    const tokenExpire = "4h"
+    try {
+        const email = req.body.email
+        const password = req.body.password
+
+        const validUser = await userModel.findOne({ email: email })
+
+        const result = bcryptjs.compareSync(password, validUser.password)
+
+        if (result) {
+            console.log("User in connected")
+            const token = jwt.sign(
+                {
+                    id: result._id
+                },
+                config.secret,
+                {
+                    expiresIn: tokenExpire
+                }
+            )
+            console.log("User token: ", token, "are expire in:", tokenExpire)
+            res.status(200).json({
+                message: "User connected",
+                validUser,
+                token,
+                tokenExpire
+            })
+
+        } else {
+            res.status(401).json({ message: "Login failed" })
+
+        }
+
+    } catch (error) {
+        res.status(500).json({ errorMessage: "There was a problem :(", error })
+    }
+
+}
+
+module.exports = { signup, login }
