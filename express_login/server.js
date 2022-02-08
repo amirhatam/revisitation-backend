@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require("./utils/config")
-
+const signup = require('./routes/authRoutes')
 
 mongoose.connect(config.mongoUrls, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
@@ -16,6 +16,9 @@ const port = config.port
 const app = express()
 
 app.use(express.json())
+
+app.use('/signup', signup)
+
 
 app.listen(port, () => {
     console.log('The server is waiting for requests');
