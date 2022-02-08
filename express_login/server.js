@@ -15,6 +15,8 @@ const port = config.port
 
 const app = express()
 
+app.use(express.json())
+
 app.listen(port, () => {
     console.log('The server is waiting for requests');
 })
