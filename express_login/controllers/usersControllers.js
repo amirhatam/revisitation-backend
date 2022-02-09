@@ -3,10 +3,9 @@ const userModel = require('../models/user')
 const getUsers = async (req, res) => {
 
     try {
-        // const users = await userModel.find().exec()
+        const users = await userModel.find().exec()
 
-        // res.json(users)
-        res.json("TEST")
+        res.json(users)
 
     } catch (err) {
         console.log(err);
