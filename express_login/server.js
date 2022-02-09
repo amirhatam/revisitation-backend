@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const config = require("./utils/config")
 const auth = require('./routes/authRoutes')
+const usersRoutes = require("./routes/usersRoutes")
+
 
 mongoose.connect(config.mongoUrls, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
@@ -18,6 +20,7 @@ const app = express()
 app.use(express.json())
 
 app.use('/', auth)
+app.use("/users", usersRoutes)
 
 
 app.listen(port, () => {
