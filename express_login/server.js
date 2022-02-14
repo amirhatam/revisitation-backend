@@ -14,7 +14,7 @@ mongoose.connect(config.mongoUrls, { useNewUrlParser: true, useUnifiedTopology: 
 })
 
 const port = config.port
-
+// console.log(port);
 const app = express()
 
 app.use(express.json())
